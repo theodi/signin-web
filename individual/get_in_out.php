@@ -1,5 +1,5 @@
 <?php
-	include('database_connector.php');
+	include('../database_connector.php');
 	
 	date_default_timezone_set('UTC');
 

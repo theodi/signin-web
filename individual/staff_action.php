@@ -3,7 +3,7 @@
 	$id = $_POST['id'];
 	$action = $_POST['action'];
 	
-	require('functions.php');
+	require('../functions.php');
 	
 	if ($action == "checkin") {
 		sign_in($id);				
