@@ -19,4 +19,10 @@ namespace :deploy do
   end  
 end
 
-after "deploy:restart", "deploy:cleanup"
+namespace :staff do
+  task :update do
+    run "cd #{current_path}/staff/; php update_staff.php"
+  end
+end
+
+after "deploy:restart", "deploy:cleanup", "staff:update"
