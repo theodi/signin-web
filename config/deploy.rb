@@ -5,6 +5,8 @@ set :user, 'deploy'
 set :deploy_to, "/var/www/signin.office.theodi.org"
 set :use_sudo, false
 
+set :normalize_asset_timestamps, false
+
 role :web, "signin.office.theodi.org"
 role :app, "signin.office.theodi.org"
 role :db,  "signin.office.theodi.org", :primary => true
