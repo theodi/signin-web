@@ -69,7 +69,7 @@ function get_header() {
 <style>@import url("http://www.theodi.org/sites/all/modules/ckeditor/ckeditor.css?mc3hpr");</style>
 <style>@import url("http://www.theodi.org/sites/all/themes/odi/css/print.css?mc3hpr");
 @import url("http://www.theodi.org/sites/all/themes/odi/css/odi.css?mc3hpr");</style>
-<link rel="stylesheet" type="text/css" href="http://signin.office.theodi.org/layout.css">
+<link rel="stylesheet" type="text/css" href="layout.css">
 <!--[if IE 6]>
 <style>@import url("http://www.theodi.org/sites/all/themes/odi/css/bootstrap.ie6.min.css?mc3hpr");
 @import url("http://www.theodi.org/sites/all/themes/odi/css/ie6.css?mc3hpr");</style>
