@@ -18,6 +18,10 @@ namespace :deploy do
     run "ln -nfs #{shared_path}/config/database_connector.php #{release_path}/database_connector.php"
     run "ln -nfs #{shared_path}/data/staff.csv #{release_path}/staff/staff.csv"
     run "ln -nfs #{shared_path}/data/stock #{release_path}/staff/stock"
+    run "ln -nfs #{shared_path}/data/staff.csv #{release_path}/staff.csv"
+    run "ln -nfs #{shared_path}/data/stock #{release_path}/stock"
+    run "ln -nfs #{shared_path}/data/staff.csv #{release_path}/individual/staff.csv"
+    run "ln -nfs #{shared_path}/data/stock #{release_path}/individual/stock"
   end  
 end
 
