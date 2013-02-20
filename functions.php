@@ -48,3 +48,19 @@ function sign_out($id) {
 	$res = $mysqli->query($query);
 	return $res; 
 }
+
+function add_staff_to_database($staff) {
+	global $mysqli;
+	for ($i=0;$i<count($staff);$i++) {
+		$person = $staff[$i];
+		$company = "The Open Data Institute";
+		$key_string = trim($person["forname"]) . trim($person["surname"]) . trim($person["email"]);
+        	$key = md5($key_string);
+		$query = "select * from people where id='$key';";
+		$res = $mysqli->query($query);
+		if ($res->num_rows < 1) {
+			$query = "insert into people set id='$key',firstname='".$person["forname"]."',email='".$person["email"]."',lastname='".$person["surname"]."',company='$company';";
+			$res = $mysqli->query($query);
+		}
+	}
+}
