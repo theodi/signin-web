@@ -6,8 +6,14 @@ $.ajaxSetup ({
 });
 
 function load() {
+	
 	$.get('../staff/get_in_out.php', function(data) {	
 		process_data(data);
+	})
+	.fail(function() { 
+		$.get('staff/get_in_out.php', function(data) {
+                	process_data(data);
+	        })
 	});
 }
 		
