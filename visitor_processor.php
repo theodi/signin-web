@@ -1,11 +1,11 @@
 <?php
 
-include('database_connector.php');
-
 $last_md5 = "dsahjdkas";
-$dir = "/Users/Davetaz/odi-sign-in";
+$dir = "/Users/odidisplay/Documents/odi-sign-in";
 
 date_default_timezone_set('UTC');
+
+include('database_connector.php');
 
 while(true) {
 	$cmd = "cat $dir/* | md5 2>/dev/null";
@@ -15,12 +15,62 @@ while(true) {
 		$people = process_files($dir);
 	}
 	//print_r($people);
-	update_database($people);
-	#create_html($people);
+	update_database($people,$mysqli);
+	//create_html($people);
 	sleep(3);
 }
 
-function update_database($people) {
+function print_name_badge($person,$mysqli) {
+	$weekago = date("Y-m-d",time() - 518400);
+        $weekago = $weekago . "T23:59:59Z";
+	
+	$twentymins = date("Y-m-d",time() - 1200);
+
+	$key = $person["key"];
+	$firstname = $person["firstname"];
+	$lastname = $person["lastname"];
+	$company = $person["company"];
+	$email = $person["email"];
+	echo "Printing name badge for $firstname $lastname\n";
+	
+	if (strpos($email,"@theodi.org") !== false) {
+		return;
+	}
+
+        $query = "select * from in_out where id='$key' and checkin>'$weekago' and badge_printed>0;";
+	$res = $mysqli->query($query);
+
+	if ($res->num_rows > 0) {
+		return true;
+	}
+	
+	$query = "update in_out set badge_printed=1 where id='$key';";
+	$res = $mysqli->query($query);
+
+	$ret = print_label($firstname . " " . $lastname, $company);
+
+}
+
+function print_label($name,$company) {
+	$file_name = "label_" . time() . ".applescript";
+	
+	$content = file_get_contents('template.applescript');
+	
+	$content = str_replace('the_name',$name,$content);
+	$content = str_replace('the_company',$company,$content);
+
+	$handle = fopen($file_name,"w");
+	fwrite($handle,$content);
+	fclose($handle);
+
+	exec('osascript ' . $file_name . ' &');
+
+	unlink($file_name);
+
+	return true;
+}
+
+function update_database($people,$mysqli) {
 	for ($i=0;$i<count($people);$i++) {
 
 		$key = $people[$i]["key"];
@@ -78,6 +128,7 @@ function update_in_out($person,$mysqli) {
 	echo "inserting in_out \n";
 	$query = 'insert into in_out set checkin="'.$checkin.'", checkout="'.$checkout.'", id="'.$key.'";';
 	$res = $mysqli->query($query) or die($query);
+	print_name_badge($person,$mysqli);
 	return;
 
 }
@@ -140,8 +191,7 @@ function process_files($dir) {
 }
 
 function process_file($dir,$file) {
-	echo "Processing $file\n";
-
+	
 	$key = substr($file,0,strpos($file,"."));
 	
 	exec("cp $dir/$file $file");
