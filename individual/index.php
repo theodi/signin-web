@@ -27,7 +27,7 @@
 	echo '<span style="font-size: 8em;">';
 	echo $row[0];
 	echo " " . $row[1] . '</span><br/><br/>';
-	echo '<a href="staff_individual.php?id='.$key.'"><img class="people_pic" style="width: 400px; height: 400px;" src="stock/'.trim($row[2]).'.jpg"/></a><br/>';
+	echo '<a href="?id='.$key.'"><img class="people_pic" style="width: 400px; height: 400px;" src="../staff/stock/'.trim($row[2]).'.jpg"/></a><br/>';
 	if (signed_in($key)) {
 		echo '<button style="font-size: 3em; height: 1.2em;" value="'.$key.'" class="checkout" id="checkout_'.$key.'">Check Out</button>';
 		echo '<button style="font-size: 3em; height: 1.2em; display: none;" value="'.$key.'" class="checkin" id="checkin_'.$key.'">Check In</button>';
