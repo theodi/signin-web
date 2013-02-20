@@ -6,7 +6,7 @@ $.ajaxSetup ({
 });
 
 function load() {
-	$.get('get_in_out.php', function(data) {	
+	$.get('../staff/get_in_out.php', function(data) {	
 		process_data(data);
 	});
 }
