@@ -15,6 +15,8 @@
 
 error_reporting(E_ALL ^ E_NOTICE);
 
+require('../functions.php');
+require('../database_connector.php');
 
 $source = "http://www.theodi.org/team";
 $domain = "theodi.org";
@@ -135,6 +137,8 @@ function write_data($people,$file,$image_path) {
 	}
 
 	fclose($handle);
+
+	add_staff_to_database($people);
 
 }
 
