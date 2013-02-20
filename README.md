@@ -10,8 +10,16 @@ data will be made available as Open Data.
 Usage
 -----
 
-Deploy to server, then copy database_connector.example.php to database_connector.php 
-and enter the appropriate credentials.
+To deploy master to the live server:
+
+    bundle
+    cap deploy
+
+This will automatically set up the database connection details, etc, and update the cached staff list.
+
+If you want to update the staff list manually without a code deploy, run:
+
+    cap staff:update
 
 License
 -------
