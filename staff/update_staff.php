@@ -20,12 +20,12 @@ require('../database_connector.php');
 
 $source = "http://www.theodi.org/team";
 $domain = "theodi.org";
-
+ 
 # This file does not have to already exist
 $dest_file = "staff.csv";
 
 # THIS PATH DOES HAVE TO EXIST
-$images_path = "stock";
+$images_path = "../stock";
 
 $contents = file_get_contents($source);
 
@@ -37,7 +37,7 @@ for ($i=1;$i<count($split);$i++) {
 
 $people = remove_duplicates($people);
 
-write_data($people,$dest_file,$images_path);
+write_data($people,$dest_file,$images_path,$domain);
 
 function get_person($data, $domain) {
 
@@ -107,8 +107,10 @@ function remove_duplicates($people) {
 	return $out;
 }
 
-function write_data($people,$file,$image_path) {
-		
+function write_data($people,$file,$image_path,$domain) {
+
+	$base_url = "http://www." . $domain;
+	
 	$handle = fopen($file,"w");
 	
 	if (!$handle) {
@@ -122,8 +124,7 @@ function write_data($people,$file,$image_path) {
 		fwrite($handle,$line);
 
 		$image_file = $image_path . "/" . $person["email"] . ".jpg";
-
-		$image = file_get_contents($person["image_url"]);
+		$image = file_get_contents($base_url . $person["image_url"]);
 
 		$img_handle = fopen($image_file,"w");
 
