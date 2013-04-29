@@ -124,7 +124,12 @@ function write_data($people,$file,$image_path,$domain) {
 		fwrite($handle,$line);
 
 		$image_file = $image_path . "/" . $person["email"] . ".jpg";
-		$image = file_get_contents($base_url . $person["image_url"]);
+	
+		$image_url = $person["image_url"];
+		if (substr($person["image_url"],0,7) != "http://" ) {
+			$image_url = $base_url . $person["image_url"];
+		}
+		$image = file_get_contents($image_url);
 
 		$img_handle = fopen($image_file,"w");
 
