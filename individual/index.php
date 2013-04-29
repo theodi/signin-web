@@ -7,6 +7,8 @@
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
         <script src="../js/people.js"></script>
         <script src="../js/staff_status.js"></script>
+	<script src="../js/keycards.js"></script>
+	<script src="../js/date.js"></script>
 <?php
 
 	$id = $_GET['id'];
@@ -28,6 +30,7 @@
 	echo $row[0];
 	echo " " . $row[1] . '</span><br/><br/>';
 	echo '<a href="?id='.$key.'"><img class="people_pic" style="width: 400px; height: 400px;" src="../staff/stock/'.trim($row[2]).'.jpg"/></a><br/>';
+	echo '<input type="hidden" id="person_id" value="'.$key.'"></input>';
 	if (signed_in($key)) {
 		echo '<button style="font-size: 3em; height: 1.2em;" value="'.$key.'" class="checkout" id="checkout_'.$key.'">Check Out</button>';
 		echo '<button style="font-size: 3em; height: 1.2em; display: none;" value="'.$key.'" class="checkin" id="checkin_'.$key.'">Check In</button>';
@@ -35,8 +38,15 @@
 		echo '<button style="font-size: 3em; height: 1.2em;" value="'.$key.'" class="checkin" id="checkin_'.$key.'">Check In</button>';
 		echo '<button style="font-size: 3em; height: 1.2em; display: none;" value="'.$key.'" class="checkout" id="checkout_'.$key.'">Check Out</button>';
 	}
-	
 ?>
+	<section id="keycards">
+		<h2>RFID Cards</h2>
+		<div style="font-size: 3em;" id="new_card">
+			<div id="add_card">
+				Add Card
+			</div>
+		</div>
+	</section>
 	<script>
 	
 $(document).ready(function() {

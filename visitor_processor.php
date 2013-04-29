@@ -6,6 +6,7 @@ $dir = "/Users/odidisplay/Documents/odi-sign-in";
 date_default_timezone_set('UTC');
 
 include('database_connector.php');
+include('functions.php');
 
 while(true) {
 	$cmd = "cat $dir/* | md5 2>/dev/null";
@@ -16,6 +17,8 @@ while(true) {
 	}
 	//print_r($people);
 	update_database($people,$mysqli);
+	//Process Keycard signins
+	keycard_processor();
 	//create_html($people);
 	sleep(3);
 }
