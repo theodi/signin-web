@@ -43,7 +43,8 @@
 		<div id="add_card">
 			<button style="font-size: 2em; height: 1.2em" id="associate_button">Associate RFID Card</button>
 		</div>
-		<div style="font-size: 2em;" id="new_card">
+		<div style="font-size: 2em; display: none;" id="new_card">
+			Please put card on the reader
 		</div>
 	</section>
 	<script>
