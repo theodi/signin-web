@@ -40,11 +40,10 @@
 	}
 ?>
 	<section id="keycards">
-		<h2>RFID Cards</h2>
-		<div style="font-size: 3em;" id="new_card">
-			<div id="add_card">
-				Add Card
-			</div>
+		<div id="add_card">
+			<button style="font-size: 2em; height: 1.2em" id="associate_button">Associate RFID Card</button>
+		</div>
+		<div style="font-size: 2em;" id="new_card">
 		</div>
 	</section>
 	<script>
