@@ -1,10 +1,5 @@
 
 $(document).ready(function() {
-
-//	$("#associate_card").click(function() {
-//		$("#new_card").html('Please put card on reader');
-//	});
-
 	$("#add_card").click(function() {
 		read_card_1();
 	});
@@ -49,12 +44,17 @@ function register_card(keycard_id) {
 	ret = false;
 	console.log("Registering: " + keycard_id);
 	person_id = $('#person_id').val();
-	$.post("../staff/staff_action.php", { "action": "associate_keycard", "person_id": person_id, "keycard_id": keycard_id } )
-	.success(function(data) {
-		ret = true;
-	})
-	.error(function(data) {
-		ret = false;
+	$.ajax({
+		type: "POST",
+		url: "../staff/staff_action.php",
+		data: { "action": "associate_keycard", "person_id": person_id, "keycard_id": keycard_id },
+		success: function(data) { 
+				ret = true; 
+			},
+		error: function (data) {
+				ret = false; 
+			},		
+		async: false
 	});
 	return ret;
 }
