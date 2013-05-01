@@ -75,6 +75,8 @@ function read_file() {
 				ret = false;
 			}
 		},
+		error: function(res,code,xhr) {
+		},
 		async: false
 	});
 	return ret;

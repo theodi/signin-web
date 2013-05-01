@@ -68,6 +68,8 @@ function add_staff_to_database($staff) {
 function associate_keycard($person_id,$keycard_id) {
 	global $mysqli;
 
+	$keycard_id = trim($keycard_id);
+
 	$query = 'delete from person_keycards where keycard_id="'.$keycard_id.'";';
 	$res = $mysqli->query($query);
 	$query = 'insert into person_keycards set keycard_id="'.$keycard_id.'",person_id="'.$person_id.'";';
@@ -124,9 +126,23 @@ function update_keycard_cache() {
 	fclose($handle);	
 }	
 
-function register_keycard($id) {
-	$file = 'keycard.txt';	
-	$handle = fopen($file,"w");
-	fwrite($handle,$id);
-	fclose($handle);
+function register_keycard($keycard_id) {
+	global $mysqli;
+	$keycard_id = trim($keycard_id);
+	$query = 'select person_id from person_keycards where keycard_id="'.$keycard_id.'";';
+	$res = $mysqli->query($query);
+	$row = $res->fetch_row();
+	$id = $row[0];
+	if ($id) {
+		if (signed_in($id)) {
+			if (sign_out($id)) { return 204; } else { return 500; }
+		} else {
+			if (sign_in($id)) { return 201; } else { return 500; }
+		}
+	} else {
+		$file = '../keycard.txt';	
+		$handle = fopen($file,"w");
+		if (fwrite($handle,$keycard_id) !== false) { return 202; } else { return 500; }
+		fclose($handle);
+	}
 }

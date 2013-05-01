@@ -17,8 +17,6 @@ while(true) {
 	}
 	//print_r($people);
 	update_database($people,$mysqli);
-	//Process Keycard signins
-	keycard_processor();
 	//create_html($people);
 	sleep(3);
 }
