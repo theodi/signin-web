@@ -6,6 +6,7 @@ $dir = "/Users/odidisplay/Documents/odi-sign-in";
 date_default_timezone_set('UTC');
 
 include('database_connector.php');
+include('functions.php');
 
 while(true) {
 	$cmd = "cat $dir/* | md5 2>/dev/null";
