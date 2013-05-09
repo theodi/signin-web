@@ -51,8 +51,8 @@ while 42:
 	if card.select():
 		print '    Tag ID: ' + card.uid,
 		params = urllib.urlencode({'action': "keycard", 'keycard_id': card.uid})
-		conn = httplib.HTTPConnection("nile.ecs.soton.ac.uk:80")
-		conn.request("POST", "/~davetaz/signin-web/staff/staff_action.php", params, headers)
+		conn = httplib.HTTPConnection("signin.office.theodi.org")
+		conn.request("POST", "/staff/staff_action.php", params, headers)
 		response = conn.getresponse()
 		print response.status, response.reason
 		data = response.read()
