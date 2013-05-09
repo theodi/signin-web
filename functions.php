@@ -70,9 +70,9 @@ function associate_keycard($person_id,$keycard_id) {
 
 	$keycard_id = trim($keycard_id);
 
-	$query = 'delete from person_keycards where keycard_id="'.$keycard_id.'";';
+	$query = 'delete from people_keycards where keycard_id="'.$keycard_id.'";';
 	$res = $mysqli->query($query);
-	$query = 'insert into person_keycards set keycard_id="'.$keycard_id.'",person_id="'.$person_id.'";';
+	$query = 'insert into people_keycards set keycard_id="'.$keycard_id.'",person_id="'.$person_id.'";';
 	$res = $mysqli->query($query);
 
 	update_keycard_cache();
@@ -96,7 +96,7 @@ function keycard_processor() {
 
 	if ($keycards_last_update != $last_modified) {
 		$keycard_id = file_get_contents($file);
-		$query = 'select person_id from person_keycards where keycard_id="'.$keycard_id.'";';
+		$query = 'select person_id from people_keycards where keycard_id="'.$keycard_id.'";';
 		$res = $mysqli->query($query);
 		$row = $res->fetch_row();
 		$id = $row[0];
@@ -129,7 +129,7 @@ function update_keycard_cache() {
 function register_keycard($keycard_id) {
 	global $mysqli;
 	$keycard_id = trim($keycard_id);
-	$query = 'select person_id from person_keycards where keycard_id="'.$keycard_id.'";';
+	$query = 'select person_id from people_keycards where keycard_id="'.$keycard_id.'";';
 	$res = $mysqli->query($query);
 	$row = $res->fetch_row();
 	$id = $row[0];
