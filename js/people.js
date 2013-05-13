@@ -33,12 +33,8 @@ function process_data(allText) {
 
 function signin_person(id,firstname,lastname,email) {
 	if (email.indexOf('@theodi.org') > 0) {
-		var opacity = $('#'+id).css('opacity');
-		if (opacity < 1) {
-			$('#'+id).css('opacity','1')
-			//$('#'+id).fadeIn('fast');
-		}
+		$('#'+id).css('display','inline-block')
 	} else {
-		$('#allonsite').append('<div class="person" style="opacity: 1;"><img class="people_pic" src="photo.php?id='+id+'"/>'+firstname + " " + lastname + '</div>');
+		$('#allonsite').append('<div class="person" style="display: inline-block;"><a href="individual/?id='+id+'"><img class="people_pic" src="photo.php?id='+id+'"/></a>'+firstname + " " + lastname + '</div>');
 	}
 }

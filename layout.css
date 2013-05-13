@@ -41,9 +41,8 @@ body {
 .person {
 	text-align: center;
 	width: 120px;
-	display: inline-block;
 	padding-bottom: 1em;
-	opacity: 0.2;
+	display: none;
 }
 .person_all {
 	text-align: center;

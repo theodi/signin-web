@@ -10,7 +10,7 @@
 			<h1 class="boxtitle">All On-Site Visitors</h1>
 		</div>
 	</div>
-	<div class="peoplebox staffdiv">
+	<div id="staff" class="peoplebox staffdiv">
 		<div class="titlediv" align="center">
 			<h1 class="boxtitle">ODI Staff / Associates</h1>
 		</div>
