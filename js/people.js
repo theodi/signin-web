@@ -27,7 +27,38 @@ function load() {
 	        })
 	});
 }
-		
+
+function reveal(id) {
+	hide_all();
+	$(id).show();
+	$(id+"_nav").addClass("selected");     
+	window.location.hash = (id);
+}
+function hide_all() {
+	$("#allonsite").hide();
+	$("#allonsite_nav").removeClass("selected");
+	$("#startups").hide();
+	$("#startups_nav").removeClass("selected");
+	$("#staff").hide();
+	$("#staff_nav").removeClass("selected");
+}
+
+$(document).ready(function() {
+        var hash = window.location.hash;
+        if (hash) {
+                reveal(hash);
+        }
+        $("#allonsite_nav").click(function () {
+                reveal("#allonsite");
+        });
+        $("#startups_nav").click(function () {
+                reveal("#startups");
+        });
+        $("#staff_nav").click(function () {
+                reveal("#staff");
+        });
+});
+
 function process_data(allText) {
 
         var allTextLines = allText.split(/\r\n|\n/);
@@ -118,3 +149,6 @@ function reset_interval() {
 		visitor_cycle_proc = window.setInterval(function() {cycle_visitors()},refresh_interval);
 	}
 }
+
+
+
