@@ -29,7 +29,11 @@
 	echo '<span style="font-size: 8em;">';
 	echo $row[0];
 	echo " " . $row[1] . '</span><br/><br/>';
-	echo '<a href="?id='.$key.'"><img class="people_pic" style="width: 400px; height: 400px;" src="../staff/stock/'.trim($row[2]).'.jpg"/></a><br/>';
+	if (file_exists('../staff/stock/'.trim($row[2]))) {
+		echo '<a href="?id='.$key.'"><img class="people_pic" style="width: 400px; height: 400px;" src="../staff/stock/'.trim($row[2]).'.jpg"/></a><br/>';
+	} else {
+		echo '<a href="?id='.$key.'"><img class="people_pic" style="width: 400px; height: 400px;" src="../photo.php?id='.$id.'"/></a><br/>';
+	}
 	echo '<input type="hidden" id="person_id" value="'.$key.'"></input>';
 	if (signed_in($key)) {
 		echo '<button style="font-size: 3em; height: 1.2em;" value="'.$key.'" class="checkout" id="checkout_'.$key.'">Check Out</button>';

@@ -1,12 +1,23 @@
 load();
 
+visitor_per_page = 24;
+staff_per_page = 16;
+visitor_counter = 0;
+staff_counter = 0;
+
+visitor_pages = 0;
+current_visitor_page = 0;
+current_visitor_node = "allonsite";
+
+refresh_interval = 10000;
+visitor_cycle_proc = undefined;
+
 $.ajaxSetup ({
     // Disable caching of AJAX responses
     cache: false
 });
 
 function load() {
-	
 	$.get('../staff/get_in_out.php', function(data) {	
 		process_data(data);
 	})
@@ -16,7 +27,38 @@ function load() {
 	        })
 	});
 }
-		
+
+function reveal(id) {
+	hide_all();
+	$(id).show();
+	$(id+"_nav").addClass("selected");     
+	window.location.hash = (id);
+}
+function hide_all() {
+	$("#allonsite").hide();
+	$("#allonsite_nav").removeClass("selected");
+	$("#startups").hide();
+	$("#startups_nav").removeClass("selected");
+	$("#staff").hide();
+	$("#staff_nav").removeClass("selected");
+}
+
+$(document).ready(function() {
+        var hash = window.location.hash;
+        if (hash) {
+                reveal(hash);
+        }
+        $("#allonsite_nav").click(function () {
+                reveal("#allonsite");
+        });
+        $("#startups_nav").click(function () {
+                reveal("#startups");
+        });
+        $("#staff_nav").click(function () {
+                reveal("#staff");
+        });
+});
+
 function process_data(allText) {
 
         var allTextLines = allText.split(/\r\n|\n/);
@@ -29,16 +71,84 @@ function process_data(allText) {
 		var lastname = entry[3];
 		signin_person(id,firstname,lastname,email);
 	}
+
+	append_visitor_pages();
+	visitor_cycle_proc = window.setInterval(function() {cycle_visitors()},refresh_interval);
+	
 }
 
 function signin_person(id,firstname,lastname,email) {
 	if (email.indexOf('@theodi.org') > 0) {
-		var opacity = $('#'+id).css('opacity');
-		if (opacity < 1) {
-			$('#'+id).css('opacity','1')
-			//$('#'+id).fadeIn('fast');
-		}
+		$('#'+id).css('display','inline-block')
 	} else {
-		$('#allonsite').append('<div class="person" style="opacity: 1;"><img class="people_pic" src="photo.php?id='+id+'"/>'+firstname + " " + lastname + '</div>');
+		if (visitor_counter == 0 || (visitor_counter % visitor_per_page) == 0) {
+			page = visitor_counter / visitor_per_page;
+			current_visitor_node = "allonsite" + page;
+			if (page < 1) {
+				$('#allonsite').append('<div id="' + current_visitor_node + '" class="people"></div>');
+			} else {
+				visitor_pages++;
+				$('#allonsite').append('<div id="' + current_visitor_node + '" style="display: none;" class="people allonsite"></div>');
+			}
+		}
+		$('#' + current_visitor_node).append('<div class="person" style="display: inline-block;"><a href="individual/?id='+id+'"><img class="people_pic" src="photo.php?id='+id+'"/></a>'+firstname + " " + lastname + '</div>');
+		visitor_counter++;
 	}
 }
+
+function append_visitor_pages() {
+	if (visitor_pages < 1) {
+		return;
+	} else {
+		$('#allonsite').append('<div id="visitor_nav" align="center" class="visitor_nav"></div>');
+		for (i=0;i<=visitor_pages;i++) {
+			show = i + 1;
+			if (i == 0) {
+				$('#visitor_nav').append('<a id="visitor_nav_'+ i +'" onclick="show_visitor_page(' + i + ');" style="font-weight: bold;">' + show + '</a> | ');
+			} else {
+				$('#visitor_nav').append('<a id="visitor_nav_'+ i +'" onclick="show_visitor_page(' + i + ');">' + show + '</a> | ');
+			}
+		}
+		$('#visitor_nav').append('<a onclick="reset_interval();">&gt;&gt;</a>');
+	}
+	
+}
+
+function cycle_visitors() {
+	var next_page = current_visitor_page + 1;
+	if (next_page > visitor_pages) {
+		next_page = 0;
+	}
+	$('#allonsite' + current_visitor_page).fadeOut(function() {
+		$('#visitor_nav_' + next_page).css('font-weight','bold');
+		$('#visitor_nav_' + current_visitor_page).css('font-weight','');
+		$('#allonsite' + next_page).fadeIn(function() {
+			current_visitor_page = next_page;
+		});
+	});
+}
+
+function show_visitor_page(page) {
+	clearInterval(visitor_cycle_proc);
+	visitor_cycle_proc = undefined;
+	for (i=0;i<visitor_pages;i++) {
+		if ($('#allonsite' + i).css("opacity") == 1) {
+			$('#allonsite' + i).fadeOut(function() {
+				$('#visitor_nav_' + page).css('font-weight','bold');
+				$('#visitor_nav_' + i).css('font-weight','');
+				$('#allonsite' + page).fadeIn(function() {
+					current_visitor_page = page;	
+				});
+			});
+		}	
+	}
+}
+
+function reset_interval() {
+	if (visitor_cycle_proc == undefined) {
+		visitor_cycle_proc = window.setInterval(function() {cycle_visitors()},refresh_interval);
+	}
+}
+
+
+

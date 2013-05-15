@@ -10,24 +10,33 @@ body {
 	padding: 0.5em;
 	font-family: arial;
 }
+.normalbox {
+	height: 640px;
+	width: 750px;
+	display: block;
+	clear: both;
+	position: relative;
+	background: #eee;
+	top: -20px;
+	height: 640px;
+}
 .leftdiv {
 	float: left;
 	width: 65%;
 	height: 220px;
 	background-color: #CCEEFF;
 }
-.staffdiv {
+.display_staff {
 	float: right;
 	width: 500px;
 	text-align: center;
-	height: 600px;
+	height: 640px;
 }
-.allonsite {
+.display_allonsite {
 	display: block;
-	float: left;
-		
+	float: left;		
 	width: 750px;
-	height: 600px;
+	height: 640px;
 }
 .titlediv {
 	padding-bottom: 1em;
@@ -41,9 +50,18 @@ body {
 .person {
 	text-align: center;
 	width: 120px;
-	display: inline-block;
 	padding-bottom: 1em;
-	opacity: 0.2;
+	display: none;
+}
+.visitor_nav {
+	font-size: 2em;
+}
+.visitor_nav a {
+	cursor: pointer;
+}
+.people {
+	height: 560px;
+	overflow: none;
 }
 .person_all {
 	text-align: center;
@@ -64,4 +82,37 @@ body {
 	height: 100px;
 	display: block;
 	margin-bottom: 0.5em;
+}
+#categories {
+        padding-top: 1.2em;
+        display: block;
+	margin-left: 20px;
+        width: 750px;
+}
+#categories ul {
+        list-style: none;
+        padding:0;
+        margin:0;
+        text-align: center;
+        min-width: 600px;
+}
+#categories li {
+        float: left;
+        border: 2px solid #336699;
+        border-radius: 10px;
+        border-bottom-width: 0;
+        padding: 0.5em;
+        margin-right: 0.5em;
+        width: 18%;
+        height: 50px;
+        cursor: pointer;
+	font-size: 1.3em;
+}
+#categories li a {
+        padding: 0 1em;
+}
+#categories .selected {
+        position: relative;
+        top: 1px;
+        background: #bbb;
 }
