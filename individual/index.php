@@ -46,7 +46,7 @@ if (file_exists('layout.css')) {
 	echo '<span style="font-size: 6em;">';
 	echo $row[0];
 	echo " " . $row[1] . '</span><br/>';
-	if (file_exists('../staff/stock/'.trim($row[2]))) {
+	if (file_exists('../staff/stock/'.trim($row[2]).'.jpg')) {
 		echo '<a href="?id='.$key.'"><img class="people_pic" style="width: 300px; height: 300px;" src="../staff/stock/'.trim($row[2]).'.jpg"/></a><br/>';
 	} else {
 		echo '<a href="?id='.$key.'"><img class="people_pic" style="width: 300px; height: 300px;" src="../photo.php?id='.$id.'"/></a><br/>';
