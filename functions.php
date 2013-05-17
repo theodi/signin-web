@@ -48,6 +48,12 @@ function sign_out($id) {
 	$res = $mysqli->query($query);
 	return $res; 
 }
+function update_role($id,$role) {
+	global $mysqli;
+	$query = 'insert into people_roles set person_id="'.$id.'", role="'.$role.'";'; 
+	$res = $mysqli->query($query);
+	return $res; 
+}
 
 function add_staff_to_database($staff) {
 	global $mysqli;

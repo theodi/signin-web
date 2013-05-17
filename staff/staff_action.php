@@ -56,5 +56,11 @@ fclose($handle);
 			echo "Something went wrong, moan at the techies!";
 		}
 	}
+	
+	if ($action == "role") {
+		$role = $_POST['role'];
+		return update_role($id,$role);
+	}	
+
 
 ?>
