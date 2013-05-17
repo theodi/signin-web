@@ -17,7 +17,7 @@
 		$parts = explode(",",$line);
 		$key_string = trim($parts[0]) . trim($parts[1]) . trim($parts[2]);
         	$key = md5($key_string);
-		echo '<div id="' . $key . '" class="person" style="opacity: 1;">';
+		echo '<div id="' . $key . '" class="person" style="opacity: 1; display: inline-block;">';
 		echo '<a href="../individual/?id='.$key.'"><img class="people_pic" src="stock/'.trim($parts[2]).'.jpg"/></a>';
 		echo $parts[0] . ' ' . $parts[1];
 		echo '<br/>';

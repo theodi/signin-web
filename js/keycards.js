@@ -1,4 +1,10 @@
 
+$.ajaxSetup ({
+    // Disable caching of AJAX responses
+    cache: false
+});
+
+
 $(document).ready(function() {
 	$("#add_card").click(function() {
 		read_card_1();
