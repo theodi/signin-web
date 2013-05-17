@@ -70,7 +70,7 @@ function preload_staff() {
 		$key_string = trim($parts[0]) . trim($parts[1]) . trim($parts[2]);
         	$key = md5($key_string);
 		echo '<div id="' . $key . '" class="person">';
-		echo '<img class="people_pic" src="staff/stock/'.trim($parts[2]).'.jpg"/>';
+		echo '<a href="individual/?id='.$key.'"><img class="people_pic" src="staff/stock/'.trim($parts[2]).'.jpg"/></a>';
 		echo $parts[0] . ' ' . $parts[1];
 		echo '</div>';
 	}	
