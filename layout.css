@@ -116,3 +116,55 @@ body {
         top: 1px;
         background: #bbb;
 }
+.ops {
+	border: 1px dashed #336699;
+	border-radius: 10px;
+}
+.ops_box {
+	width: 320px;
+	height: 160px;
+	display: inline-block;
+	overflow: hidden;
+}
+.ops_box h2 {
+	margin-top: 0.1em;
+	margin-bottom: 0.1em
+}
+.ops_box_left {
+	border-right: 1px dashed #336699;
+}
+.ops_box_top {
+	border-bottom: 1px dashed #336699;
+}
+.ops {
+	width: 650px;
+}
+.roles {
+	border: 1px dashed #6699AA;
+	border-radius: 10px;
+	width: 300px;
+	text-align: center;
+}
+.role_type td {	
+	height: 32px;
+	width: 33%;
+	font-size: 24px;
+	font-weight: bold;
+}
+.role_select {
+	cursor: pointer;
+	height: 60px;
+}
+.role_selected {
+	background-image: url("blank/person.png");
+	background-size:60px 60px;
+	background-repeat:no-repeat;
+	background-position:center; 
+}
+.role_select_middle {
+	border-left: 1px dashed #6699AA;
+	border-right: 1px dashed #6699AA;
+}
+.role_pic {
+	height: 60px;
+}

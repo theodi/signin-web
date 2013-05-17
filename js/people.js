@@ -43,6 +43,16 @@ function hide_all() {
 	$("#staff_nav").removeClass("selected");
 }
 
+function switch_roles(role) {
+	$("#role_staff").removeClass("role_selected");
+	$("#role_startup").removeClass("role_selected");
+	$("#role_visitor").removeClass("role_selected");
+	$("#role_" + role).addClass("role_selected");
+	id = $("input#person_id").val();	
+	$.post("staff/staff_action.php", { "action": "role", "id": id, "role": role } );
+	$.post("../staff/staff_action.php", { "action": "role", "id": id, "role": role } );
+}
+
 $(document).ready(function() {
         var hash = window.location.hash;
         if (hash) {
@@ -56,6 +66,15 @@ $(document).ready(function() {
         });
         $("#staff_nav").click(function () {
                 reveal("#staff");
+        });
+        $("#role_staff").click(function () {
+                switch_roles("staff");
+        });
+        $("#role_startup").click(function () {
+                switch_roles("startup");
+        });
+        $("#role_visitor").click(function () {
+                switch_roles("visitor");
         });
 });
 

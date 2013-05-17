@@ -15,3 +15,8 @@ create table people_keycards (
 	person_id varchar(32) not null,
 	keycard_id varchar(255) not null
 );
+create table people_roles (
+	person_id varchar(32) not null,
+	role varchar(32) not null,
+	valid_from TIMESTAMP DEFAULT CURRENT_TIMESTAMP not null	
+);

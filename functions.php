@@ -48,6 +48,12 @@ function sign_out($id) {
 	$res = $mysqli->query($query);
 	return $res; 
 }
+function update_role($id,$role) {
+	global $mysqli;
+	$query = 'insert into people_roles set person_id="'.$id.'", role="'.$role.'";'; 
+	$res = $mysqli->query($query);
+	return $res; 
+}
 
 function add_staff_to_database($staff) {
 	global $mysqli;
@@ -61,6 +67,11 @@ function add_staff_to_database($staff) {
 		if ($res->num_rows < 1) {
 			$query = "insert into people set id='$key',firstname='".$person["forname"]."',email='".$person["email"]."',lastname='".$person["surname"]."',company='$company';";
 			$res = $mysqli->query($query);
+		}
+		$query = 'select * from people_roles where person_id="'.$key.'";';
+		$res = $mysqli->query($query);
+		if ($res->num_rows < 1) {
+			update_role($key,"staff");
 		}
 	}
 }
