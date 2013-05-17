@@ -30,7 +30,8 @@ function read_card_2() {
 		$.get(theResource, function(data) {
 			$('#new_card').html("Registering Card: " + data);
 			if (register_card(data)) {
-				$('#new_card').html("SUCCESS Registered: " + data);			} else {
+				$('#new_card').html("SUCCESS Registered: " + data);
+			} else {
 				$('#new_card').html("Failed to register card (either try again or contact tech team for help)");			
 			}
 		});
