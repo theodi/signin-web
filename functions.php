@@ -68,6 +68,11 @@ function add_staff_to_database($staff) {
 			$query = "insert into people set id='$key',firstname='".$person["forname"]."',email='".$person["email"]."',lastname='".$person["surname"]."',company='$company';";
 			$res = $mysqli->query($query);
 		}
+		$query = 'select * from people_roles where person_id="'.$key.'";';
+		$res = $mysqli->query($query);
+		if ($res->num_rows < 1) {
+			update_role($key,"staff");
+		}
 	}
 }
 
