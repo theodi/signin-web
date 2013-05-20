@@ -1,16 +1,34 @@
 load();
 
-visitor_per_page = 24;
-staff_per_page = 16;
-visitor_counter = 0;
-staff_counter = 0;
+var roles = new Array();
+var roles_current_page = new Array();
+var roles_counter = new Array();
+var roles_cycle_proc = new Array();
+var roles_pages = new Array();
+var current_role_page = new Array();
 
-visitor_pages = 0;
-current_visitor_page = 0;
-current_visitor_node = "allonsite";
+roles[0] = "staff";
+roles[1] = "startup";
+roles[2] = "visitor";
 
-refresh_interval = 10000;
-visitor_cycle_proc = undefined;
+//people per page
+peoplepp = 24;
+
+//starting pages
+for (i=0;i<roles.length;i++) {
+	//Current page to append people to
+	roles_current_page[roles[i]] = 0;
+	//Roles counter
+	roles_counter[roles[i]] = 0;
+	//Roles Pages
+	roles_pages[roles[i]] = 0;
+	//Cycle process id
+	roles_cycle_proc[roles[i]] = undefined;
+	//role pages
+	current_role_page[roles[i]] = 0;
+}
+
+var refresh_interval = 10000;
 
 $.ajaxSetup ({
     // Disable caching of AJAX responses
@@ -35,18 +53,18 @@ function reveal(id) {
 	window.location.hash = (id);
 }
 function hide_all() {
-	$("#allonsite").hide();
-	$("#allonsite_nav").removeClass("selected");
-	$("#startups").hide();
-	$("#startups_nav").removeClass("selected");
-	$("#staff").hide();
-	$("#staff_nav").removeClass("selected");
+	for (i=0;i<roles.length;i++) {
+		role = roles[i].trim();
+		$('#'+role).hide();
+		$('#'+role+'_nav').removeClass("selected");
+	}
 }
 
 function switch_roles(role) {
-	$("#role_staff").removeClass("role_selected");
-	$("#role_startup").removeClass("role_selected");
-	$("#role_visitor").removeClass("role_selected");
+	for (i=0;i<roles.length;i++) {
+		role = roles[i].trim();
+		$('#'+role+'_nav').removeClass("role_selected");
+	}
 	$("#role_" + role).addClass("role_selected");
 	id = $("input#person_id").val();	
 	$.post("staff/staff_action.php", { "action": "role", "id": id, "role": role } );
@@ -54,28 +72,41 @@ function switch_roles(role) {
 }
 
 $(document).ready(function() {
-        var hash = window.location.hash;
-        if (hash) {
-                reveal(hash);
-        }
-        $("#allonsite_nav").click(function () {
-                reveal("#allonsite");
-        });
-        $("#startups_nav").click(function () {
-                reveal("#startups");
-        });
-        $("#staff_nav").click(function () {
-                reveal("#staff");
-        });
-        $("#role_staff").click(function () {
-                switch_roles("staff");
-        });
-        $("#role_startup").click(function () {
-                switch_roles("startup");
-        });
-        $("#role_visitor").click(function () {
-                switch_roles("visitor");
-        });
+//        var hash = window.location.hash;
+//        if (hash) {
+//                reveal(hash);
+//        }
+/*
+	for (i=0;i<roles.length;i++) {
+        	role = roles[i].trim();
+		console.log("external + " + role);
+		$("#"+role+"_nav").click(function () {
+			reveal("#"+role);
+        	});
+        	$("#role_"+role).click(function () {
+                	switch_roles(role);
+        	});
+	}
+*/	
+		$("#staff_nav").click(function () {
+			reveal("#staff");
+        	});
+        	$("#role_staff").click(function () {
+                	switch_roles("staff");
+        	});
+		$("#visitor_nav").click(function () {
+			reveal("#visitor");
+        	});
+        	$("#role_visitor").click(function () {
+                	switch_roles("visitor");
+        	});
+		$("#startup_nav").click(function () {
+			reveal("#startup");
+        	});
+        	$("#role_startup").click(function () {
+                	switch_roles("startup");
+        	});
+
 });
 
 function process_data(allText) {
@@ -88,84 +119,101 @@ function process_data(allText) {
 		var email = entry[1];
 		var firstname = entry[2];
 		var lastname = entry[3];
-		signin_person(id,firstname,lastname,email);
+		var role = entry[4];
+		signin_person(id,firstname,lastname,email,role);
 	}
 
-	append_visitor_pages();
-	visitor_cycle_proc = window.setInterval(function() {cycle_visitors()},refresh_interval);
-	
+//	for (i=0;i<roles.length;i++) {
+//		role = roles[i].trim();
+//		append_roles_nav(role);
+//		roles_cycle_proc[role] = window.setInterval(function() {cycle_role(role)},refresh_interval);
+//	}	
 }
 
-function signin_person(id,firstname,lastname,email) {
-	if (email.indexOf('@theodi.org') > 0) {
-		$('#'+id).css('display','inline-block')
-	} else {
-		if (visitor_counter == 0 || (visitor_counter % visitor_per_page) == 0) {
-			page = visitor_counter / visitor_per_page;
-			current_visitor_node = "allonsite" + page;
-			if (page < 1) {
-				$('#allonsite').append('<div id="' + current_visitor_node + '" class="people"></div>');
-			} else {
-				visitor_pages++;
-				$('#allonsite').append('<div id="' + current_visitor_node + '" style="display: none;" class="people allonsite"></div>');
-			}
+
+function signin_person(id,firstname,lastname,email,role) {
+	if (role == "staff") {
+		if ($('#'+id).length > 0) {
+			$('#'+id).css('display','inline-block')
+		} else {
+			append_person(id,firstname,lastname,email,role);
 		}
-		$('#' + current_visitor_node).append('<div class="person" style="display: inline-block;"><a href="individual/?id='+id+'"><img class="people_pic" src="photo.php?id='+id+'"/></a>'+firstname + " " + lastname + '</div>');
-		visitor_counter++;
+	} else {
+		append_person(id,firstname,lastname,email,role);
 	}
 }
 
-function append_visitor_pages() {
-	if (visitor_pages < 1) {
+function append_person(id,firstname,lastname,email,role) {
+	role = role.trim();
+	roles_current_page[role] = 0;
+	current_node = role + "_" + roles_current_page[roles[i]];
+	//Cycle process id
+	roles_cycle_proc[roles[i]] = undefined;
+	current_node = role + "_" + roles_current_page[role];
+	if (roles_counter[role] == 0 || (roles_counter[role] % peoplepp) == 0) {
+		current_node = role + "_" + roles_current_page[role];
+		if (roles_current_page[role] < 1) {
+			$('#' + role).append('<div id="' + current_node + '" class="people"></div>');
+		} else {
+			roles_pages[role]++;
+			$('#' + role).append('<div id="' + current_node + '" style="display: none;" class="people allonsite"></div>');
+			roles_current_page[role]++;
+		}
+		roles_counter[role]++;
+	}
+	$('#' + current_node).append('<div class="person" style="display: inline-block;"><a href="individual/?id='+id+'"><img class="people_pic" src="photo.php?id='+id+'"/></a>'+firstname + " " + lastname + '</div>');	
+}
+
+function append_roles_nav(role) {
+	if (roles_pages[role] < 1) {
 		return;
 	} else {
-		$('#allonsite').append('<div id="visitor_nav" align="center" class="visitor_nav"></div>');
-		for (i=0;i<=visitor_pages;i++) {
+		$('#'+role).append('<div id="'+role+'_nav" align="center" class="'+role+'_nav"></div>');
+		for (i=0;i<=roles_pages[role];i++) {
 			show = i + 1;
 			if (i == 0) {
-				$('#visitor_nav').append('<a id="visitor_nav_'+ i +'" onclick="show_visitor_page(' + i + ');" style="font-weight: bold;">' + show + '</a> | ');
+				$('#'+role+'_nav').append('<a id="'+role+'_nav_'+ i +'" onclick="show_role_page(' + i + ',' + role +');" style="font-weight: bold;">' + show + '</a> | ');
 			} else {
-				$('#visitor_nav').append('<a id="visitor_nav_'+ i +'" onclick="show_visitor_page(' + i + ');">' + show + '</a> | ');
+				$('#'+role+'_nav').append('<a id="'+role+'_nav_'+ i +'" onclick="show_role_page(' + i + ',' + role +');">' + show + '</a> | ');
 			}
 		}
-		$('#visitor_nav').append('<a onclick="reset_interval();">&gt;&gt;</a>');
-	}
-	
+		$('#'+role+'_nav').append('<a onclick="reset_interval(' + role + ');">&gt;&gt;</a>');
+	}	
 }
 
-function cycle_visitors() {
-	var next_page = current_visitor_page + 1;
-	if (next_page > visitor_pages) {
+function cycle_role(role) {
+	var next_page = roles_current_page[role] + 1;
+	if (next_page > roles_pages[role]) {
 		next_page = 0;
 	}
-	$('#allonsite' + current_visitor_page).fadeOut(function() {
-		$('#visitor_nav_' + next_page).css('font-weight','bold');
-		$('#visitor_nav_' + current_visitor_page).css('font-weight','');
-		$('#allonsite' + next_page).fadeIn(function() {
-			current_visitor_page = next_page;
+	$('#'+role+'_' + current_role_page[role]).fadeOut(function() {
+		$('#'+role+'_nav_' + next_page).css('font-weight','bold');
+		$('#'+role+'_nav_' + current_role_page[role]).css('font-weight','');
+		$('#' + role + '_' + next_page).fadeIn(function() {
+			current_role_page[role] = next_page;
 		});
 	});
 }
 
-function show_visitor_page(page) {
-	clearInterval(visitor_cycle_proc);
-	visitor_cycle_proc = undefined;
-	for (i=0;i<visitor_pages;i++) {
-		if ($('#allonsite' + i).css("opacity") == 1) {
-			$('#allonsite' + i).fadeOut(function() {
-				$('#visitor_nav_' + page).css('font-weight','bold');
-				$('#visitor_nav_' + i).css('font-weight','');
-				$('#allonsite' + page).fadeIn(function() {
-					current_visitor_page = page;	
+function show_role_page(page,role) {
+	clearInterval(roles_cycle_proc[role]);
+	roles_cycle_proc[role] = undefined;
+	for (i=0;i<roles_counter[role];i++) {
+		if ($('#' + role + '_' + i).css("opacity") == 1) {
+			$('#' + role + '_' + i).fadeOut(function() {
+				$('#' + role + '_nav_' + page).css('font-weight','bold');
+				$('#' + role + '_nav_' + i).css('font-weight','');
+				$('#' + role + '_' + page).fadeIn(function() {
+					current_role_page[role] = page;	
 				});
 			});
 		}	
 	}
 }
 
-function reset_interval() {
-	if (visitor_cycle_proc == undefined) {
-		visitor_cycle_proc = window.setInterval(function() {cycle_visitors()},refresh_interval);
+function reset_interval(role) {
+	if (role_cycle_proc[role] == undefined) {
+		role_cycle_proc[role] = window.setInterval(function() {cycle_role(role)},refresh_interval);
 	}
 }
 

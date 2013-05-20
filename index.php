@@ -2,9 +2,9 @@
 	include('branding.php');
 	get_header();
 	get_branding("Today's Visitors");
-	$categories['visitor']['id'] = 'allonsite';
+	$categories['visitor']['id'] = 'visitor';
 	$categories['visitor']['name'] = 'All On-Site Visitors';
-	$categories['startup']['id'] = 'startups';
+	$categories['startup']['id'] = 'startup';
 	$categories['startup']['name'] = 'Start-Up Members';
 	$categories['staff']['id'] = 'staff';
 	$categories['staff']['name'] = 'ODI Staff / Associates';
@@ -48,17 +48,6 @@
 		echo "\t" . '</div>' . "\n";
 		$count++;
 	}
-/*
-	<div id="allonsite" class="peoplebox allonsite">
-		<div class="titlediv" align="center">
-			<h1 class="boxtitle">All On-Site Visitors</h1>
-		</div>
-	</div>
-	<div id="staff" class="peoplebox staffdiv">
-		<div class="titlediv" align="center">
-			<h1 class="boxtitle">ODI Staff / Associates</h1>
-		</div>
-*/
 ?>
 </div>
 <?php
