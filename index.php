@@ -42,27 +42,11 @@
 		echo "\t\t" . '<div class="titlediv" align="center">' . "\n";
 		echo "\t\t\t" . '<h1 class="boxtitle">' . $title . '</h1>' . "\n";
 		echo "\t\t" . '</div>' . "\n";
-		if ($key == "staff") {
-			preload_staff();
-		}
 		echo "\t" . '</div>' . "\n";
 		$count++;
 	}
 ?>
 </div>
 <?php
-
-function preload_staff() {
-	$handle = fopen('staff/staff.csv','r');
-	while ($line = fgets($handle)) {
-		$parts = explode(",",$line);
-		$key_string = trim($parts[0]) . trim($parts[1]) . trim($parts[2]);
-        	$key = md5($key_string);
-		echo '<div id="' . $key . '" class="person">';
-		echo '<a href="individual/?id='.$key.'"><img class="people_pic" src="staff/stock/'.trim($parts[2]).'.jpg"/></a>';
-		echo $parts[0] . ' ' . $parts[1];
-		echo '</div>';
-	}	
-}
 	get_footers();
 ?>
