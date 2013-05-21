@@ -128,10 +128,24 @@ function process_data(allText) {
 	for (i=0;i<roles.length;i++) {
 		role = roles[i].trim();
 		append_roles_nav(role);
-		roles_cycle_proc[role] = window.setInterval(function() {cycle_role(role)},refresh_interval);
-	}	
-	console.log("proc visitor = " + roles_cycle_proc["visitor"] + " <end> ");
-	console.log("proc staff = " + roles_cycle_proc["staff"] + " <end> ");
+		//FIXME This doesn't seem to accept the multiple roles. Potential the same problem as the other fixme! 
+		if (roles_pages[role] > 1) {
+//			roles_cycle_proc[role] = window.setInterval(function() {cycle_role(role)},refresh_interval);
+		}
+	}
+
+// CODE TO Remove pending fix above!	
+	if (roles_pages["staff"] > 1) {
+		roles_cycle_proc["staff"] = window.setInterval(function() {cycle_role("staff")},refresh_interval);
+	}
+	if (roles_pages["visitor"] > 1) {
+		roles_cycle_proc["visitor"] = window.setInterval(function() {cycle_role("visitor")},refresh_interval);
+	}
+	if (roles_pages["startup"] > 1) {
+		roles_cycle_proc["startup"] = window.setInterval(function() {cycle_role("startup")},refresh_interval);
+	}
+//	console.log("proc visitor = " + roles_cycle_proc["visitor"] + " <end> ");
+//	console.log("proc staff = " + roles_cycle_proc["staff"] + " <end> ");
 }
 
 
