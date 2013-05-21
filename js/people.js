@@ -78,6 +78,7 @@ $(document).ready(function() {
                 reveal(hash);
         }
 /*
+	FIXME
 	for (i=0;i<roles.length;i++) {
         	role = roles[i].trim();
 		console.log("external + " + role);
@@ -135,15 +136,8 @@ function process_data(allText) {
 
 
 function signin_person(id,firstname,lastname,email,role) {
-	if (role == "staff") {
-		if ($('#'+id).length > 0) {
-			$('#'+id).css('display','inline-block')
-		} else {
-			append_person(id,firstname,lastname,email,role);
-		}
-	} else {
-		append_person(id,firstname,lastname,email,role);
-	}
+	// The place to sort staff (optional)
+	append_person(id,firstname,lastname,email,role);
 }
 
 function append_person(id,firstname,lastname,email,role) {
