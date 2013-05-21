@@ -53,10 +53,10 @@ body {
 	padding-bottom: 1em;
 	display: none;
 }
-.visitor_nav {
+.pages_nav {
 	font-size: 2em;
 }
-.visitor_nav a {
+.pages_nav a {
 	cursor: pointer;
 }
 .people {

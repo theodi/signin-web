@@ -50,7 +50,9 @@ function sign_out($id) {
 }
 function update_role($id,$role) {
 	global $mysqli;
-	$query = 'insert into people_roles set person_id="'.$id.'", role="'.$role.'";'; 
+	$query = 'delete from people_roles where (DATE(`valid_from`) = CURDATE()) and person_id="' . $id . '";';
+	$res = $mysqli->query($query);
+	$query = 'insert into people_roles set person_id="'.$id.'", role="'.$role.'";';  
 	$res = $mysqli->query($query);
 	return $res; 
 }

@@ -20,6 +20,9 @@
 		} else {
 			$role = "visitor";
 		}
+		if ($role == "") {
+			$role = "visitor";
+		}
 		$string = $row[0] . ', ' . $row[3] . ', ' . $row[1] . ', ' . $row[2] . ', ' . $role . "\n";
 		echo $string;
 	}

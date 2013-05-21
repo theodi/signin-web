@@ -8,10 +8,9 @@
 
 	$res = $mysqli->query($query);
 	$row = $res->fetch_row();
-	echo 'stock/'.$row[1].'.jpg';
 	if (file_exists('stock/'.$row[1].'.jpg')) {
 		header("Location: stock/".$row[1].'.jpg');
-	} elseif ($row[0] != "") {	
+	} elseif ($row[0] != "") {
 		header('Content-type: image/jpeg');
 		echo base64_decode($row[0]);
 	} else {
