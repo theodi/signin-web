@@ -7,16 +7,18 @@ var roles_cycle_proc = new Array();
 var roles_pages = new Array();
 var current_role_page = new Array();
 var signed_in = new Array();
+var peoplepp = new Array();
 
 roles[0] = "staff";
 roles[1] = "startup";
 roles[2] = "visitor";
 
-//people per page
-peoplepp = 24;
-
 //starting pages
 for (i=0;i<roles.length;i++) {
+	//People per page
+	if (page != "display") {
+		peoplepp[roles[i]] = 24;
+	}
 	//Current page to append people to
 	roles_current_page[roles[i]] = 0;
 	//Roles counter
@@ -27,6 +29,13 @@ for (i=0;i<roles.length;i++) {
 	roles_cycle_proc[roles[i]] = undefined;
 	//role pages
 	current_role_page[roles[i]] = 0;
+}
+
+if (page == "display") {
+	console.log("display");
+	peoplepp["staff"] = 16;
+	peoplepp["visitor"] = 12;
+	peoplepp["startup"] = 12;
 }
 
 var refresh_interval = 10000;
@@ -163,7 +172,7 @@ function append_person(id,firstname,lastname,email,role) {
 	current_node = role + "_" + roles_current_page[roles[i]];
 	//Cycle process id
 	roles_cycle_proc[roles[i]] = undefined;
-	if (roles_counter[role] == 0 || (roles_counter[role] % peoplepp) == 0) {
+	if (roles_counter[role] == 0 || (roles_counter[role] % peoplepp[role]) == 0) {
 		current_node = role + "_" + roles_pages[role];
 		if (roles_pages[role] < 1) {
 			$('#' + role).append('<div id="' + current_node + '" class="people"></div>');

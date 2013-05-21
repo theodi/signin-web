@@ -28,13 +28,20 @@ body {
 	float: right;
 	width: 500px;
 	text-align: center;
-	height: 640px;
+	height: 660px;
 }
-.display_allonsite {
+.display_visitor {
 	display: block;
 	float: left;		
 	width: 750px;
-	height: 640px;
+	height: 320px;
+	margin-bottom: 1em;
+}
+.display_startups {
+	display: block;
+	float: left;		
+	width: 750px;
+	height: 320px;
 }
 .titlediv {
 	padding-bottom: 1em;

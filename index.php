@@ -9,7 +9,11 @@
 	$categories['staff']['id'] = 'staff';
 	$categories['staff']['name'] = 'ODI Staff / Associates';
 ?>
+
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+	page = "normal";
+</script>
         <script src="js/people.js"></script>
 	<div align="center">
 	<nav id="categories">
