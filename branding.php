@@ -5,10 +5,10 @@ echo '
     <div class="branding">
               <a href="/" title="Home" rel="home" id="logo">
               <h1 id="site-name" style="display: none;">The Open Data Institute</h1> 
-              <img src="http://www.theodi.org/sites/default/files/odi_header_logo.png" alt="Home">        </a>
+              <img src="staff/stock/odi_header_logo.png" alt="Home">        </a>
       
-              <hgroup id="name-and-slogan">
-		<h2 id="site-slogan">
+              <hgroup id="nns" class="nns">
+		<h2 id="slogan" class="slogan">
 			Knowledge For Everyone
 		</h2>
 	      </hgroup>
