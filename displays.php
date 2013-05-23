@@ -18,6 +18,9 @@
 .pages_nav {
 	display: none;
 }
+body {
+	width: 1300px;
+}
 </style>
 <?php
 	foreach($categories as $key => $values) {
