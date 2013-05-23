@@ -10,7 +10,7 @@ body {
 }
 .normalbox {
 	height: 640px;
-	width: 750px;
+	width: 720px;
 	display: block;
 	clear: both;
 	position: relative;
@@ -92,7 +92,7 @@ body {
         padding-top: 1.2em;
         display: block;
 	margin-left: 20px;
-        width: 750px;
+        width: 720px;
 }
 #categories ul {
         list-style: none;
