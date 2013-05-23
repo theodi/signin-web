@@ -37,13 +37,13 @@ function get_header() {
 <head profile="http://www.w3.org/1999/xhtml/vocab">
   <meta charset="utf-8" />
 <link rel="shortcut icon" href="http://www.theodi.org/favicon.ico" type="image/vnd.microsoft.icon" />
-<meta name="Generator" content="Drupal 7 (http://drupal.org)" />
   <title>Open Data Institute</title>
 
-      <meta name="MobileOptimized" content="width">
+    <meta name="MobileOptimized" content="width">
     <meta name="HandheldFriendly" content="true">
     <meta name="viewport" content="width=device-width">
     <meta http-equiv="cleartype" content="on">
+    <meta http-equiv="cache-control" content="no-cache">
 
   <style>@import url("http://www.theodi.org/modules/system/system.base.css?mc3hpr");
 @import url("http://www.theodi.org/modules/system/system.messages.css?mc3hpr");
