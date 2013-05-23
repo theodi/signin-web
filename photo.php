@@ -4,13 +4,13 @@
 
 	$id = $_GET["id"];
 
-	$query = "select photo from people where id='$id';";
+	$query = "select photo,email from people where id='$id';";
 
 	$res = $mysqli->query($query);
-	
-	
 	$row = $res->fetch_row();
-	if ($row[0] != "") {	
+	if (file_exists('stock/'.$row[1].'.jpg')) {
+		header("Location: stock/".$row[1].'.jpg');
+	} elseif ($row[0] != "") {
 		header('Content-type: image/jpeg');
 		echo base64_decode($row[0]);
 	} else {

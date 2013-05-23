@@ -4,27 +4,15 @@ echo '
 <header id="header" role="banner">
     <div class="branding">
               <a href="/" title="Home" rel="home" id="logo">
-          
-          <img src="http://www.theodi.org/sites/default/files/logo.svg" alt="Home" class="b_svg" width="131" height ="54">
-          <img src="http://www.theodi.org/sites/default/files/logo.png" alt="Home" class="b_png" width="131" height ="54">        </a>
+              <h1 id="site-name" style="display: none;">The Open Data Institute</h1> 
+              <img src="staff/stock/odi_header_logo.png" alt="Home">        </a>
       
-              <hgroup id="name-and-slogan">
-
-                                  <h1 id="site-name">
-              <a href="/" title="Open Data Institute" rel="home">
-                              
-          <img src="http://www.theodi.org/sites/default/files/logo_a.svg" alt="Open Data Institute" class="b_svg" width="326" height ="30">
-          <img src="http://www.theodi.org/sites/default/files/logo_a.png" alt="Open Data Institute" class="b_png" width="326" height ="30">                            </a>
-            </h1>
-          
-                                  <h2 id="site-slogan">
-                          
-Knowledge For Everyone                  
-</hgroup>
-	  <div style="float: right; margin-right: 1em; margin-top: 0.5em;">
-	  	<h1 style="font-weight: bold;">'.$title.'</h1>
-	  </div>
-          </div>
+              <hgroup id="nns" class="nns">
+		<h2 id="slogan" class="slogan">
+			Knowledge For Everyone
+		</h2>
+	      </hgroup>
+     	</div>
 </header>
 ';
 }	
