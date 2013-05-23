@@ -5,7 +5,7 @@ echo '
     <div class="branding">
               <a href="/" title="Home" rel="home" id="logo">
               <h1 id="site-name" style="display: none;">The Open Data Institute</h1> 
-              <img src="staff/stock/odi_header_logo.png" alt="Home">        </a>
+              <img src="http://www.theodi.org/sites/default/files/odi_header_logo.png" alt="Home" width="204" height="48">        </a>
       
               <hgroup id="nns" class="nns">
 		<h2 id="slogan" class="slogan">

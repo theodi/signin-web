@@ -8,6 +8,7 @@
 	$categories['startup']['name'] = 'Start-Up Members';
 	$categories['staff']['id'] = 'staff';
 	$categories['staff']['name'] = 'ODI Staff / Associates';
+	$categories['staff']['link'] = 'staff/';
 ?>
 
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
@@ -15,6 +16,11 @@
 	page = "normal";
 </script>
         <script src="js/people.js"></script>
+<style>
+body {
+	width: 800px;
+}
+</style>
 	<div align="center">
 	<nav id="categories">
 	<ul>
@@ -23,11 +29,13 @@
 	foreach($categories as $key => $values) {
 		$div_id = $values['id'] . "_nav";
 		$title = $values['name'];
+		$link = $values['link'];
 		if ($count == 0) {
-			echo "\t\t" . '<li id="'.$div_id.'" class="selected">' . $title .'</li>' . "\n";
+			echo "\t\t" . '<li id="'.$div_id.'" class="selected">';
 		} else {
-			echo "\t\t" . '<li id="'.$div_id.'">' . $title .'</li>' . "\n";
-		}
+			echo "\t\t" . '<li id="'.$div_id.'">';
+		} 
+		echo $title .'</li>' . "\n";
 		$count++;
 	}
 ?>
@@ -38,13 +46,19 @@
 	foreach($categories as $key => $values) {
 		$div_id = $values['id'];
 		$title = $values['name'];
+		$link = $values['link'];
 		if ($count == 0) {
 			echo "\t" . '<div id="'.$div_id.'" class="peoplebox normalbox">' . "\n";
 		} else {
 			echo "\t" . '<div id="'.$div_id.'" class="peoplebox normalbox" style="display: none;">' . "\n";
 		}
 		echo "\t\t" . '<div class="titlediv" align="center">' . "\n";
-		echo "\t\t\t" . '<h1 class="boxtitle">' . $title . '</h1>' . "\n";
+		echo "\t\t\t" . '<h1 class="boxtitle">';
+		if ($link != "") {
+			echo '<a href="' . $link .'">' . $title .'</a></h1>' . "\n";
+		} else {
+			echo $title .'</h1>' . "\n";
+		}
 		echo "\t\t" . '</div>' . "\n";
 		echo "\t" . '</div>' . "\n";
 		$count++;
