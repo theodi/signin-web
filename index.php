@@ -16,11 +16,6 @@
 	page = "normal";
 </script>
         <script src="js/people.js"></script>
-<style>
-body {
-	width: 800px;
-}
-</style>
 	<div align="center">
 	<nav id="categories">
 	<ul>
