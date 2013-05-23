@@ -15,6 +15,9 @@ if (file_exists('layout.css')) {
 }
 ?>
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+		page = "individual";
+	</script>
         <script src="../js/people.js"></script>
         <script src="../js/staff_status.js"></script>
 	<script src="../js/keycards.js"></script>
