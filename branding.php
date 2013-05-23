@@ -71,7 +71,7 @@ echo '<!--[if IE 6]>
 <link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72.png" />
 <link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114.png" />
   </head>
-<body style="min-width: 800px;" class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-45 node-type-team-member section-people" >
+<body style="min-width: 720px;" class="html not-front not-logged-in one-sidebar sidebar-second page-node page-node- page-node-45 node-type-team-member section-people" >
 ';
 }
 
