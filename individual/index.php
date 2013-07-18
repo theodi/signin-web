@@ -70,7 +70,7 @@ if (file_exists('layout.css')) {
 	<section id="keycards" class="ops_box_right ops_box ops_box_top">
 		<h2>Associate RFID Card</h2>
 		<div id="add_card">
-			<button style="font-size: 1.5em; height: 1.6em" id="associate_button">Associate New Card</button>
+			<button style="font-size: 1.5em; height: 1.6em" id="associate_button" onclick="read_card_1();">Associate New Card</button>
 		</div>
 		<div style="font-size: 1.5em; display: none;" id="new_card">
 			Please put card on the reader

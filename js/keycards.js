@@ -4,11 +4,11 @@ $.ajaxSetup ({
     	cache: false
 });
 
-$(document).ready(function() {
-	$("#add_card").click(function() {
-		read_card_1();
-	});
-});
+//$(document).ready(function() {
+//	$("#add_card").click(function() {
+//		read_card_1();
+//	});
+//});
 
 function read_card_1() {
 	$("#add_card").hide(function() { 

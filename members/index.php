@@ -26,12 +26,14 @@ if (file_exists('layout.css')) {
 	border-bottom: 1px solid gray;
 }
 .member_info {
-	width: 50%;
+	width: 40%;
 	text-align: center;
 	display: inline-block;
 }
 .card {
-	width: 30%;
+	font-size: 0.8em;
+	text-align: center;
+	width: 40%;
 	display: inline-block;
 }
 .member_logo {
