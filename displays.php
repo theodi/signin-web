@@ -6,7 +6,7 @@
 	$categories['visitor']['name'] = 'All On-Site Visitors';
 	$categories['staff']['id'] = 'staff';
 	$categories['staff']['name'] = 'ODI Staff / Associates';
-	$categories['startup']['id'] = 'startups';
+	$categories['startup']['id'] = 'startup';
 	$categories['startup']['name'] = 'Start-Up Members';
 ?>
 	<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>

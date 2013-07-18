@@ -78,7 +78,7 @@ function add_staff_to_database($staff) {
 	}
 }
 
-function associate_keycard($person_id,$keycard_id) {
+function associate_keycard_person($person_id,$keycard_id) {
 	global $mysqli;
 
 	$keycard_id = trim($keycard_id);
@@ -86,6 +86,21 @@ function associate_keycard($person_id,$keycard_id) {
 	$query = 'delete from people_keycards where keycard_id="'.$keycard_id.'";';
 	$res = $mysqli->query($query);
 	$query = 'insert into people_keycards set keycard_id="'.$keycard_id.'",person_id="'.$person_id.'";';
+	$res = $mysqli->query($query);
+
+	update_keycard_cache();
+
+	return ($res);
+}
+
+function associate_keycard_member($member_id,$keycard_id) {
+	global $mysqli;
+
+	$keycard_id = trim($keycard_id);
+
+	$query = 'delete from member_keycards where keycard_id="'.$keycard_id.'";';
+	$res = $mysqli->query($query);
+	$query = 'insert into member_keycards set keycard_id="'.$keycard_id.'",member_id="'.$member_id.'";';
 	$res = $mysqli->query($query);
 
 	update_keycard_cache();
@@ -158,4 +173,15 @@ function register_keycard($keycard_id) {
 		if (fwrite($handle,$keycard_id) !== false) { return 202; } else { return 500; }
 		fclose($handle);
 	}
+}
+
+function is_member($person_id) {
+	global $mysqli;
+	$query = 'select member_keycards.member_id from member_keycards inner join people_keycards on people_keycards.keycard_id=member_keycards.keycard_id where people_keycards.person_id="'.$person_id.'";';
+	$res = $mysqli->query($query);
+	$row = $res->fetch_row();
+	if ($row[0] != "") {
+		return true;
+	}	
+	return false;
 }

@@ -37,7 +37,7 @@ body {
 	height: 320px;
 	margin-bottom: 1em;
 }
-.display_startups {
+.display_startup {
 	display: block;
 	float: left;		
 	width: 750px;
@@ -74,10 +74,13 @@ body {
 	display: inline-block;
 	padding-bottom: 1em;
 }
+.pic_container {
+	text-align: center;
+	vertical-align: middle;
+}
 .people_pic {
 	padding-left: 10px;
 	width: 100px;
-	height: 100px;
 	display: block;
 	margin-bottom: 0.5em;
 }

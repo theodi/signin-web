@@ -182,7 +182,7 @@ function append_person(id,firstname,lastname,email,role) {
 		roles_pages[role]++;
 	}
 	current_node = role + "_" + (roles_pages[role] - 1);
-	$('#' + current_node).append('<div class="person" style="display: inline-block;"><a href="individual/?id='+id+'"><img class="people_pic" src="photo.php?id='+id+'"/></a>'+firstname + " " + lastname + '</div>');	
+	$('#' + current_node).append('<div class="person" style="display: inline-block;"><a href="individual/?id='+id+'"><div class="pic_container"><img class="people_pic" src="photo.php?id='+id+'"/></div></a>'+firstname + " " + lastname + '</div>');	
 	roles_counter[role]++;
 	signed_in[email] = true;
 }

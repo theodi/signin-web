@@ -5,7 +5,7 @@
 	$categories['visitor']['id'] = 'visitor';
 	$categories['visitor']['name'] = 'All On-Site Visitors';
 	$categories['startup']['id'] = 'startup';
-	$categories['startup']['name'] = 'Start-Up Members';
+	$categories['startup']['name'] = 'Members / Start-Ups';
 	$categories['staff']['id'] = 'staff';
 	$categories['staff']['name'] = 'ODI Staff / Associates';
 	$categories['staff']['link'] = 'staff/';

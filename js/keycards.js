@@ -1,9 +1,8 @@
 
 $.ajaxSetup ({
     // Disable caching of AJAX responses
-    cache: false
+    	cache: false
 });
-
 
 $(document).ready(function() {
 	$("#add_card").click(function() {
@@ -14,12 +13,21 @@ $(document).ready(function() {
 function read_card_1() {
 	$("#add_card").hide(function() { 
 		$("#new_card").show(function() {
-			read_card_2();
+			read_card_2("person");
 		});
 	}); 
 }
 
-function read_card_2() {
+function read_member_card_1(id) {
+	$('#person_id').val(id);
+	$("#add_card").hide(function() { 
+		$("#new_card").show(function() {
+			read_card_2("member");
+		});
+	}); 
+}
+
+function read_card_2(type) {
 	read_card = false;
 	cont = true;
 	date_object = new Date();
@@ -35,7 +43,7 @@ function read_card_2() {
 		theResource = "../keycard.txt";
 		$.get(theResource, function(data) {
 			$('#new_card').html("Registering Card: " + data);
-			if (register_card(data)) {
+			if (register_card(type,data)) {
 				$('#new_card').html("SUCCESS Registered: " + data);
 			} else {
 				$('#new_card').html("Failed to register card (either try again or contact tech team for help)");			
@@ -47,14 +55,15 @@ function read_card_2() {
 	}
 }
 
-function register_card(keycard_id) {
+function register_card(type,keycard_id) {
 	ret = false;
 	console.log("Registering: " + keycard_id);
 	person_id = $('#person_id').val();
+	console.log("Person: " + person_id);
 	$.ajax({
 		type: "POST",
 		url: "../staff/staff_action.php",
-		data: { "action": "associate_keycard", "person_id": person_id, "keycard_id": keycard_id },
+		data: { "action": "associate_keycard_"+ type, "person_id": person_id, "keycard_id": keycard_id },
 		success: function(data) { 
 				ret = true; 
 			},
