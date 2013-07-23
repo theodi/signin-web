@@ -11,23 +11,24 @@ $.ajaxSetup ({
 //});
 
 function read_card_1() {
+	var id = "";
 	$("#add_card").hide(function() { 
 		$("#new_card").show(function() {
-			read_card_2("person");
+			read_card_2(id,"person");
 		});
 	}); 
 }
 
 function read_member_card_1(id) {
 	$('#person_id').val(id);
-	$("#add_card").hide(function() { 
-		$("#new_card").show(function() {
-			read_card_2("member");
+	$("#add_card_" + id).hide(function() { 
+		$("#new_card_" + id).show(function() {
+			read_card_2(id,"member");
 		});
 	}); 
 }
 
-function read_card_2(type) {
+function read_card_2(id,type) {
 	read_card = false;
 	cont = true;
 	date_object = new Date();
@@ -42,16 +43,17 @@ function read_card_2(type) {
 	if (read_card) {
 		theResource = "../keycard.txt";
 		$.get(theResource, function(data) {
-			$('#new_card').html("Registering Card: " + data);
+			$('#new_card_'+id).html("Registering Card: " + data);
 			if (register_card(type,data)) {
-				$('#new_card').html("SUCCESS Registered: " + data);
+				$('#new_card'+id).html("SUCCESS Registered: " + data);
+				$("#add_card"+id).show();
 			} else {
-				$('#new_card').html("Failed to register card (either try again or contact tech team for help)");			
+				$('#new_card'+id).html("Failed to register card (either try again or contact tech team for help)");			
 			}
 		});
 	} else {
-		$('#new_card').html("No card recognised");
-		$("#add_card").show();
+		$('#new_card'+id).html("No card recognised");
+		$("#add_card"+id).show();
 	}
 }
 
