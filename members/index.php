@@ -65,10 +65,10 @@ function draw_member($id,$name,$logo) {
 	echo '<item class="member_name">'.$name.'</item>';
 	echo '</section>';
 	echo '<section id="keycards" class="card">
-		<div id="add_card">
+		<div id="add_card_'.$id.'">
 			<button style="font-size: 1.5em; height: 1.6em" id="associate" onclick="read_member_card_1(\''.$id.'\');">Associate NFC Card</button>
 		</div>
-		<div style="font-size: 1.5em; display: none;" id="new_card">
+		<div style="font-size: 1.5em; display: none;" id="new_card_'.$id.'">
 			Please put card on the reader
 		</div>
 	</section>';
