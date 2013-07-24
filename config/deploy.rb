@@ -15,6 +15,7 @@ after "deploy:update_code", "deploy:setup_card_file", "deploy:link_config"
 
 namespace :deploy do
   task :link_config do
+    run "ln -nfs #{shared_path}/config/eventbrite_api_key.php #{release_path}/stats/eventbrite/eventbrite_api_key.php"
     run "ln -nfs #{shared_path}/config/database_connector.php #{release_path}/database_connector.php"
     run "ln -nfs #{shared_path}/data/staff.csv #{release_path}/staff/staff.csv"
     run "ln -nfs #{shared_path}/data/stock #{release_path}/staff/stock"

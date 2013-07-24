@@ -1,5 +1,6 @@
 /database_connector.php
 staff/stock
+stats/eventbrite/eventbrite_api_key.php
 stock
 staff.csv
 .DS_Store

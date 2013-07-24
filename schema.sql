@@ -11,6 +11,11 @@ create table in_out (
 	checkin varchar(255),
 	checkout varchar(255)
 );
+create table eventbrite_attendees (
+	person_id varchar(32) not null,
+	event_id varchar(32),
+	checkin varchar(255)
+);
 create table people_keycards ( 
 	person_id varchar(32) not null,
 	keycard_id varchar(255) not null
