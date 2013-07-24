@@ -14,10 +14,13 @@
         }
         header('Content-type: text/csv');
         header('Content-disposition: filename="signin_stats.csv"');
-        echo "Period,Unique Visitors in Period,New Visitors in Period\n";
+        echo "Period,Unique Visitors in Period (signin),Unique Visitors in Period (Eventbrite), Unique Visitors in Period (Combined),New Visitors in Period (Combined)\n";
         $emails = array();
         for($i=0;$i<count($range);$i++) {
-                $count = 0;
+                $signin_count = 0;
+                $eventbrite_count = 0;
+                $combined_count = 0;
+		$period_emails = array();
                 $new = 0;
                 $query = "select distinct(email) from people inner join in_out on in_out.id=people.id where in_out.checkin like '".$range[$i]."%' and email not like '%theodi.org';";
                 $res = $mysqli->query($query);
@@ -25,10 +28,28 @@
                         if (!$emails[$row[0]]) {
                                 $new++;
                                 $emails[$row[0]] = true;
+				$period_emails[$row[0]] = true;
                         }
-                        $count++;
+                        $signin_count++;
                 }
-                echo $range[$i] . "," . $count . "," . $new . "\n";
+                
+		$combined_count = $signin_count;
+                
+		$query = "select distinct(email) from people inner join eventbrite_attendees on eventbrite_attendees.person_id=people.id where eventbrite_attendees.checkin like '".$range[$i]."%' and email not like '%theodi.org';";
+                $res = $mysqli->query($query);
+                while ($row = $res->fetch_row()) {
+                        if (!$emails[$row[0]]) {
+                                $new++;
+                                $emails[$row[0]] = true;
+                        }
+                        $eventbrite_count++;
+			if (!$period_emails[$row[0]]) {
+				$combined_count++;
+				$period_emails[$row[0]] = true;
+			}
+                }
+
+                echo $range[$i] . "," . $signin_count . "," . $eventbrite_count . "," . $combined_count . "," . $new . "\n";
 
         }
 ?>
