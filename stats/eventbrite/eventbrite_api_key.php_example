@@ -1,0 +1,10 @@
+<?php
+// Initialize the API client
+//  Eventbrite API / Application key (REQUIRED)
+//   http://www.eventbrite.com/api/key/
+//  Eventbrite user_key (OPTIONAL, only needed for reading/writing private user data)
+//   http://www.eventbrite.com/userkeyapi
+$authentication_tokens = array('app_key'  => 'API_KEY',
+                               'user_key' => 'USER_KEY');
+
+?>

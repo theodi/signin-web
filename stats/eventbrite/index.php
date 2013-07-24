@@ -1,7 +1,11 @@
 <?php
+
+Error_reporting(E_ALL ^ E_NOTICE);
+
 // load the API Client library
 include "Eventbrite.php";
 include "api_keys.php";
+include "../../database_connector.php";
 
 $eb_client = new Eventbrite( $authentication_tokens );
 
@@ -39,7 +43,38 @@ for ($i=0;$i<count($events);$i++) {
 
 }
 
-print_r($events);
+for ($i=0;$i<count($events);$i++) {
+	$event = $events[$i];
+	update_datebase($event);
+}
+
+function update_datebase($event) {
+	global $mysqli;
+	if (count($event["attendees"]) < 1) {
+		return;
+	}
+	$attendees = $event["attendees"];
+	for($i=0;$i<count($attendees);$i++) {
+		$array = $attendees[$i];
+		$key_string = $array["firstname"] . $array["lastname"] . $array["email"];
+		$key = md5($key_string);
+		$query = 'select * from people where id="'.$key.'";';
+		$res = $mysqli->query($query) or die($mysqli->error);
+		if ($res->num_rows < 1) {
+			$query = 'insert into people set id="'.$key.'", firstname="'.$array["firstname"].'", lastname="'.$array["lastname"].'", email="'.$array["email"].'";';	
+			$res = $mysqli->query($query) or die($mysqli->error);
+		}
+		$event_id = $event["id"];
+		$checkin = $event["start_date"] . "T00:00:00";
+		$query = 'select * from eventbrite_attendees where person_id="'.$key.'" and event_id="'.$event_id.'";';
+		$res = $mysqli->query($query) or die($mysqli->error);
+		if ($res->num_rows < 1) {
+			$query = 'insert into eventbrite_attendees set person_id="'.$key.'", event_id="'.$event_id.'", checkin="'.$checkin.'";';	
+			$res = $mysqli->query($query) or die($mysqli->error);
+			
+		}	
+	}
+}
 
 function process_attendees($event,$attendees) {
 	$attendees = objectToArray($attendees);
